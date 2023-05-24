@@ -15,7 +15,8 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                 </Link>
 
                 <div className="navbar__toggle" id="mobile-menu">
-                    <span className="bar"></span> <span className="bar"></span>
+                    <span className="bar"></span>
+                    <span className="bar"></span>
                     <span className="bar"></span>
                 </div>
                 <ul className="navbar__menu">

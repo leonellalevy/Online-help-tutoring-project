@@ -1,4 +1,5 @@
 import React from "react";
+import "../script";
 
 const RegisterPage: React.FC = () => {
     return (

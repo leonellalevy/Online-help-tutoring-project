@@ -1,4 +1,5 @@
 import React from "react";
+import "../script";
 
 const StudentPage: React.FC = () => {
     return (

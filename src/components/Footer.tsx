@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
                     <div className="social__icons">
                         <a
                             className="social__icon--link"
-                            href="/"
+                            href="https://www.facebook.com/gmiau/"
                             target="_blank"
                             aria-label="Facebook"
                         >

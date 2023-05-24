@@ -1,4 +1,6 @@
 import React from "react";
+import "../script";
+// TODO the navbar is not closing when selecting a new page, correct that
 
 const HomePage: React.FC = () => {
     return (
