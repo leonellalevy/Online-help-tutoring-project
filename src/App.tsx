@@ -6,8 +6,9 @@ import RegisterPage from "./pages/RegisterPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
-import TechPage from "./pages/TechPage";
+import LoginPage from "./pages/LoginPage";
 import StudentPage from "./pages/StudentPage";
+import AboutPage from "./pages/AboutPage";
 import { Helmet } from "react-helmet";
 
 interface LayoutProps {
@@ -52,7 +53,8 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/student" element={<StudentPage />} />
-                    <Route path="/tech" element={<TechPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/about" element={<AboutPage />} />
                     <Route path="/register" element={<RegisterPage />} />
                 </Routes>
             </Layout>

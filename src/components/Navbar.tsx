@@ -26,8 +26,8 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                         </Link>
                     </li>
                     <li className="navbar__item">
-                        <Link to="/register" className="navbar__links">
-                            More
+                        <Link to="/about" className="navbar__links">
+                            About
                         </Link>
                     </li>
                     <li className="navbar__item">
@@ -36,8 +36,8 @@ const Navbar: React.FC<NavbarProps> = (props) => {
                         </Link>
                     </li>
                     <li className="navbar__btn">
-                        <Link to="/tech" className="navbar__links">
-                            Tech
+                        <Link to="/login" className="navbar__links">
+                            Login
                         </Link>
                     </li>
                 </ul>

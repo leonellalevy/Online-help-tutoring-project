@@ -1,7 +1,7 @@
 import React from "react";
 import "../script";
 
-const TechPage: React.FC = () => {
+const LoginPage: React.FC = () => {
     return (
         <div className="main">
             <div className="main__container">
@@ -44,4 +44,4 @@ const TechPage: React.FC = () => {
     );
 };
 
-export default TechPage;
+export default LoginPage;

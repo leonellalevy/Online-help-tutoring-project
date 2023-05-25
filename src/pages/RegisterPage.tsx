@@ -46,8 +46,8 @@ const RegisterPage: React.FC = () => {
                         />
 
                         <h5 style={{ textAlign: "center" }}>
-                            Already registered? Click <a href="tech">here</a> to
-                            login
+                            Already registered? Click <a href="login">here</a>{" "}
+                            to login
                         </h5>
                     </form>
                 </div>

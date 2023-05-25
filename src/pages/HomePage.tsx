@@ -1,6 +1,5 @@
 import React from "react";
 import "../script";
-// TODO the navbar is not closing when selecting a new page, correct that
 
 const HomePage: React.FC = () => {
     return (
@@ -10,10 +9,10 @@ const HomePage: React.FC = () => {
                     <h1>Project for DD</h1>
                     <h2>Get help to not fail your classes</h2>
                     <button className="main__btn">
-                        <a href="#">I'm a student!</a>
+                        <a href="/student">I'm a student!</a>
                     </button>
                     <button className="main__btn">
-                        <a href="#">I'm a helper!</a>
+                        <a href="/helper">I'm a helper!</a>
                     </button>
                 </div>
                 <div className="main__img--container">
