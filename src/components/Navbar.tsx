@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 interface NavbarProps {
     // Define any props you want to pass to the Navbar component
 }
-
+//TODO refaire maudite navbar avec photo que maxim envoyer
 const Navbar: React.FC<NavbarProps> = (props) => {
     return (
         <nav className="navbar">
