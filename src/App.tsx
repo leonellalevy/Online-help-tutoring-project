@@ -9,12 +9,14 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import StudentPage from "./pages/StudentPage";
 import AboutPage from "./pages/AboutPage";
+import HelperPage from "./pages/HelperPage";
 import { Helmet } from "react-helmet";
 
 interface LayoutProps {
     children: ReactNode;
 }
 
+//LOOK FOR ERRORS CUZ ME DON'T UNDERSTAND ERRORS! (console ,inspect)
 const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
         <>
@@ -56,6 +58,7 @@ const App: React.FC = () => {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/helper" element={<HelperPage />} />
                 </Routes>
             </Layout>
         </Router>
