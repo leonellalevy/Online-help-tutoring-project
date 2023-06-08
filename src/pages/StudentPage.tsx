@@ -1,13 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
 import "../script";
 
+interface Helper {
+    username: string;
+    rating: number;
+    price: number;
+}
 const StudentPage: React.FC = () => {
+    const [showTable, setShowTable] = useState(false);
+    const [helpers, setHelpers] = useState<Helper[]>([]);
+    const [selectedHelper, setSelectedHelper] = useState<Helper | null>(null);
+    const [showDialog, setShowDialog] = useState(false);
+
+    const handleSearch = (event: React.FormEvent) => {
+        event.preventDefault();
+        // Perform search logic and update the 'helpers' state with the search results
+        const searchResults: Helper[] = [
+            {
+                username: "Marinella Levy Martel",
+                rating: 5,
+                price: 15,
+            },
+            {
+                username: "Centro comercial Moctezuma",
+                rating: 5,
+                price: 15,
+            },
+            {
+                username: "Ernst Handel",
+                rating: 1,
+                price: 15,
+            },
+            {
+                username: "Island Trading",
+                rating: 2,
+                price: 15,
+            },
+            {
+                username: "Laughing Bacchus Winecellars",
+                rating: 3,
+                price: 15,
+            },
+            {
+                username: "Magazzini Alimentari Riuniti",
+                rating: 3,
+                price: 15,
+            },
+        ];
+
+        setHelpers(searchResults);
+        setShowTable(true);
+    };
+
+    const renderStars = (rating: number) => {
+        const stars = [];
+
+        for (let i = 1; i <= 5; i++) {
+            if (i <= rating) {
+                stars.push(<span key={i} className="fa fa-star"></span>);
+            } else {
+                stars.push(<span key={i} className=""></span>);
+            }
+        }
+
+        return stars;
+    };
+
+    const handleAskForHelp = (helper: Helper) => {
+        setSelectedHelper(helper);
+        setShowDialog(true);
+    };
+
+    const handleCloseDialog = () => {
+        setShowDialog(false);
+    };
+
     return (
         <div className="main">
             <div className="main__container">
                 <div className="main__content">
                     <h1>Im looking for this!</h1>
-                    <form action="#" method="post">
+                    <form onSubmit={handleSearch}>
                         <label htmlFor="username">College:</label>
                         <br />
                         <select name="cars" id="cars">
@@ -51,86 +124,61 @@ const StudentPage: React.FC = () => {
                         />
                     </form>
                 </div>
-                <div className="main__content">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Rating</th>
-                                <th>Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Alfreds Futterkiste</td>
-                                <td>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                </td>
-                                <td>15$</td>
-                            </tr>
-                            <tr>
-                                <td>Centro comercial Moctezuma</td>
-                                <td>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                </td>
-                                <td>15$</td>
-                            </tr>
-                            <tr>
-                                <td>Ernst Handel</td>
-                                <td>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                </td>
-                                <td>15$</td>
-                            </tr>
-                            <tr>
-                                <td>Island Trading</td>
-                                <td>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                </td>
-                                <td>15$</td>
-                            </tr>
-                            <tr>
-                                <td>Laughing Bacchus Winecellars</td>
-                                <td>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                </td>
-                                <td>15$</td>
-                            </tr>
-                            <tr>
-                                <td>Magazzini Alimentari Riuniti</td>
-                                <td>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star checked"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                </td>
-                                <td>15$</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                {showTable && (
+                    <div className="main__content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Rating</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {helpers.map((helper, index) => (
+                                    <tr key={index}>
+                                        <td>{helper.username}</td>
+                                        <td>{renderStars(helper.rating)}</td>
+                                        <td>{helper.price}$</td>
+                                        <td>
+                                            <button
+                                                className="ask-button"
+                                                onClick={() =>
+                                                    handleAskForHelp(helper)
+                                                }
+                                            >
+                                                Ask for Help
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </div>
+            {showDialog && (
+                <div className="dialog-overlay" onClick={handleCloseDialog}>
+                    <div className="dialog">
+                        <h2>Ask for Help</h2>
+                        <p>Selected Helper: {selectedHelper?.username}</p>
+                        <p>Want to send a invitation to that helper?</p>
+                        <button
+                            className="dialog-button"
+                            onClick={handleCloseDialog}
+                        >
+                            Accept
+                        </button>
+                        <button
+                            className="dialog-button"
+                            onClick={handleCloseDialog}
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
