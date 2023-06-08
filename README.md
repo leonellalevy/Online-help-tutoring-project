@@ -12,24 +12,3 @@ Notre projet est :
     <li>Bootstrap</li>
     <li>Typescript</li>
     <li>React JS</li>
-
-<h2>Utilisation :</h2>
-
-    Faire un virtual environment : https://www.w3schools.com/django/django_create_virtual_environment.php
-
-    Faire les installations requis : Python, Pip, Django, crispyforms, Pillow
-
-    py -m pip install django-crispy-forms
-
-    py -m pip install crispy-bootstrap5 
-    
-    py -m pip install Pillow
-
-    Mettre dans le cmd : py manage.py runserver
-    
-   Dans votre navigateur web : http://localhost:8000 ou http://127.0.0.1:8000/
-
-
-
-
-
