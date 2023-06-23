@@ -13,8 +13,9 @@ module.exports = {
     mode: 'development',
     entry: './src/main.tsx',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'static/frontend'),
         filename: 'bundle.js',
+        publicPath: '/static/frontend/',
     },
     module: {
         rules: [

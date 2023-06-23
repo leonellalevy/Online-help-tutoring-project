@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "webpack-dev-server --mode development",
-    "build": "webpack --mode production",
+    "build": "webpack --config webpack.config.cjs",
     "dev": "webpack serve --mode development --open --config webpack.config.cjs"
   },
   "dependencies": {
