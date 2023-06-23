@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 import styled from "styled-components";
 import "./index.css";
+// import "style-loader!./index.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage";
 import Navbar from "./components/Navbar";
@@ -27,7 +28,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     content="width=device-width, initial-scale=1.0"
                 />
                 <title>DD project</title>
-                <link rel="stylesheet" href="styles.css" />
+                <link rel="stylesheet" href="./index.css" />
                 <link
                     rel="stylesheet"
                     href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
