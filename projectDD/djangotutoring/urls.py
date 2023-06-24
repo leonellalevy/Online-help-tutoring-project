@@ -31,7 +31,6 @@ urlpatterns = [
     path('online_tutoring/', include('online_tutoring.urls')),
     path('students/', student_list, name='student_list'),
     re_path(r'^(?:.*)/?$', staticfiles_serve, kwargs={'path': 'index.html'}),
-    re_path(r'^main\.tsx$', staticfiles_serve, {'document_root': settings.STATIC_ROOT, 'path': '../src/main.tsx', 'content_type': 'text/javascript'}),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
