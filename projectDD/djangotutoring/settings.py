@@ -10,39 +10,30 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from pathlib import Path
-import os
+from os import environ
+from os.path import dirname, abspath, join
+from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_DIR = dirname(abspath(__file__))
 
+# Build paths inside the project like this: join(BASE_DIR, ...)
+BASE_DIR = dirname(PROJECT_DIR)
+
+# Initialize .env's environment variables
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(5y)at!qa7t&pa=4pqola27krk&cg9rtrpswuwe+oyrz%2)+%s'
+SECRET_KEY = environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'static/frontend'),
-# ]
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static/frontend'),
-]
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'build', 'static'),
-# ]
-
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Application definition
 
@@ -53,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'webpack_loader',
     'online_tutoring',
     'djangotutoring',
 ]
@@ -72,7 +65,9 @@ ROOT_URLCONF = 'djangotutoring.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            join(BASE_DIR, 'templates')
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -94,9 +89,9 @@ WSGI_APPLICATION = 'djangotutoring.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tutoring_django',
-        'USER': 'postgres',
-        'PASSWORD': 'Michi1739',
+        'NAME': environ.get("PG_DB_NAME"),
+        'USER': environ.get("PG_DB_USER"),
+        'PASSWORD': environ.get("PG_DB_PASSWORD"),
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -131,13 +126,30 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+# USE_L10N = True
+
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATICFILES_LOCATION = 'static'
+STATIC_URL = '/static/'
+STATIC_FILES_URL = '/static/'
+STATIC_ROOT = join(BASE_DIR, 'static')
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static/frontend'),
+# ]
+STATICFILES_DIRS = [
+    join(BASE_DIR, 'src', 'images'),
+]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'build', 'static'),
+# ]
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
