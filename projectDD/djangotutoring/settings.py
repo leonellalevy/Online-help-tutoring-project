@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 PROJECT_DIR = dirname(abspath(__file__))
 
 # Build paths inside the project like this: join(BASE_DIR, ...)
-BASE_DIR = dirname(PROJECT_DIR)
+BASE_DIR = dirname(join(PROJECT_DIR, '../'))
 
 # Initialize .env's environment variables
 dotenv_path = join(dirname(__file__), '.env')
@@ -66,7 +66,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            join(BASE_DIR, 'templates')
+            join(BASE_DIR, 'frontend')
             ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -136,15 +136,17 @@ USE_TZ = True
 
 STATICFILES_LOCATION = 'static'
 STATIC_URL = '/static/'
-STATIC_FILES_URL = '/static/'
 STATIC_ROOT = join(BASE_DIR, 'static')
 
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static/frontend'),
 # ]
+
 STATICFILES_DIRS = [
-    join(BASE_DIR, 'src', 'images'),
+    join(BASE_DIR, 'src'),
+    join(BASE_DIR, 'frontend'),
 ]
+
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'build', 'static'),
 # ]
@@ -155,3 +157,14 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'bundles/', # must end with slash
+        'STATS_FILE': join(BASE_DIR, './dist/webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': ['.+\.hot-update.js', '.+\.map']
+    }
+}

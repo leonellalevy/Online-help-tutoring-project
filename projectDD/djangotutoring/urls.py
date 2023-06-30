@@ -22,15 +22,14 @@ from online_tutoring.views import student_list  # if using the view function app
 from online_tutoring.views import StudentListView  # if using the view class approach
 from django.contrib.staticfiles.views import serve as staticfiles_serve
 from django.urls import re_path
+from django.views.generic import TemplateView
 
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    #path('api/', include('online_tutoring.urls')),
-    path('online_tutoring/', include('online_tutoring.urls')),
-    path('students/', student_list, name='student_list'),
-    re_path(r'^(?:.*)/?$', staticfiles_serve, kwargs={'path': 'index.html'}),
+    path(r'admin/', admin.site.urls),
+    path(r'', include('online_tutoring.urls')),
+    path('', TemplateView.as_view(template_name='index.html')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -5,6 +5,9 @@ from django.views.generic import ListView, CreateView
 from .serializers import YourModelSerializer
 from django.http import HttpResponse
 
+def index(request):
+    return render(request, 'index.html')
+
 def main_tsx_view(request):
     # Read the content of the main.tsx file
     with open('../src/main.tsx', 'r') as file:
