@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'webpack_loader',
     'online_tutoring',
 ]
 
@@ -82,7 +84,9 @@ ROOT_URLCONF = 'djangotutoring.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            join(BASE_DIR, 'frontend')
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,9 +108,9 @@ WSGI_APPLICATION = 'djangotutoring.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tutoring_django',
-        'USER': 'postgres',
-        'PASSWORD': 'Michi1739',
+        'NAME': environ.get("PG_DB_NAME"),
+        'USER': environ.get("PG_DB_USER"),
+        'PASSWORD': environ.get("PG_DB_PASSWORD"),
         'HOST': 'localhost',
         'PORT': '5432',
     }
