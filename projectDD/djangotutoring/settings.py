@@ -85,7 +85,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            join(BASE_DIR, 'frontend')
+            join(BASE_DIR, 'src')
             ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -108,9 +108,9 @@ WSGI_APPLICATION = 'djangotutoring.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': environ.get("PG_DB_NAME"),
-        'USER': environ.get("PG_DB_USER"),
-        'PASSWORD': environ.get("PG_DB_PASSWORD"),
+        'NAME': 'tutoring_django',
+        'USER': 'postgres',
+        'PASSWORD': 'Michi1739',
         'HOST': 'localhost',
         'PORT': '5432',
     }
