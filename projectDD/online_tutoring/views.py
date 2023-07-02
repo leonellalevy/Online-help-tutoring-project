@@ -1,35 +1,44 @@
 from django.shortcuts import render
-from rest_framework import generics
-from .models import Student
+# from .models import Student
 from django.views.generic import ListView, CreateView
 from .serializers import YourModelSerializer
 from django.http import HttpResponse
+from django.http import JsonResponse
 
-def main_tsx_view(request):
-    # Read the content of the main.tsx file
-    with open('../src/main.tsx', 'r') as file:
-        content = file.read()
+def index(request):
+    return render(request, 'index.html')
 
-    # Create an HTTP response with the file content and set the content type
-    response = HttpResponse(content, content_type='text/javascript')
-    return response
+def api_data(request):
+    data = {
+        'message': 'Hello BRO the backend!',
+    }
+    return JsonResponse(data)
 
-# class YourModelListCreateView(generics.ListCreateAPIView):
-#     queryset = Student.objects.all()
-#     serializer_class = YourModelSerializer
+# def main_tsx_view(request):
+#     # Read the content of the main.tsx file
+#     with open('../src/main.tsx', 'r') as file:
+#         content = file.read()
 
-def student_list(request):
-    students = Student.objects.all()
-    return render(request, 'student_list.html', {'students': students})
+#     # Create an HTTP response with the file content and set the content type
+#     response = HttpResponse(content, content_type='text/javascript')
+#     return response
 
-from django.views import generic
+# # class YourModelListCreateView(generics.ListCreateAPIView):
+# #     queryset = Student.objects.all()
+# #     serializer_class = YourModelSerializer
 
-class StudentListView(generic.ListView):
-    model = Student
-    template_name = 'student_list.html'
-    context_object_name = 'students'
+# def student_list(request):
+#     students = Student.objects.all()
+#     return render(request, 'student_list.html', {'students': students})
 
-# Create your views here.
-class YourModelListCreateView(ListView, CreateView):
-    model = Student
-    template_name = 'student_list.html'
+# from django.views import generic
+
+# class StudentListView(generic.ListView):
+#     model = Student
+#     template_name = 'student_list.html'
+#     context_object_name = 'students'
+
+# # Create your views here.
+# class YourModelListCreateView(ListView, CreateView):
+#     model = Student
+#     template_name = 'student_list.html'
