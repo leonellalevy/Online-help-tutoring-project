@@ -10,7 +10,7 @@ def index(request):
 
 def api_data(request):
     data = {
-        'message': 'Hello BRO the backend!',
+        'message': 'Hello my DUDE the backend!',
     }
     return JsonResponse(data)
 

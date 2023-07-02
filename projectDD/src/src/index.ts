@@ -9,12 +9,12 @@ function fetchData() {
       console.error(error);
     });
 }
-greet("lololololof");
+greet("mmhvhjvghvhgamamam");
 fetchData();
-console.log("Fsdfsfsf");
+console.log("pabo");
 
 function greet(name: string) {
-    console.log(`grtgrjijjiji, ${name}!`);
+    console.log(`aa, ${name}!`);
   }
   
   greet("po favo");
