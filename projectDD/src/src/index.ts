@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// import './main.tsx';
 function fetchData() {
   axios.get('/api/data')
     .then(response => {
@@ -9,12 +10,12 @@ function fetchData() {
       console.error(error);
     });
 }
-greet("mmhvhjvghvhgamamam");
+greet("fsd");
 fetchData();
-console.log("pabo");
+console.log("MAximmmm");
 
 function greet(name: string) {
     console.log(`aa, ${name}!`);
   }
   
-  greet("po favo");
+  greet("po letsgoo");
