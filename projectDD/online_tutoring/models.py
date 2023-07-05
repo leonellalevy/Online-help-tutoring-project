@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
     # grade = models.CharField(max_length=10)
 
 class Student(models.Model):
-    student_id = models.IntegerField()
+    student_id = models.IntegerField(primary_key=True)
     role_id = models.IntegerField()
     student_username = models.CharField(max_length=30)
 
@@ -20,16 +20,37 @@ class Student(models.Model):
     class Meta:
         app_label = 'online_tutoring'
     
-# class Course(models.Model):
-#     course_id = models.IntegerField()
-#     college_id = models.IntegerField()
-#     subject_id = models.IntegerField()
-#     teacher_id = models.IntegerField()
-#     session_id = models.IntegerField()
-#     course_name = models.CharField(max_length=15)
+class College(models.Model):
+    college_id = models.IntegerField(primary_key=True)
+    college_name = models.CharField(max_length=20)
+class Subject(models.Model):
+    subject_id = models.IntegerField(primary_key=True)
+    subject_name = models.CharField(max_length=20)
 
-#     def __str__(self):
-#         return self.course_id
+class Teacher(models.Model):
+    teacher_id = models.IntegerField(primary_key=True)
+    teacher_fname = models.CharField(max_length=30)
+    teacher_lname = models.CharField(max_length=30)
+
+    def __str__(self):
+        return f"{self.teacher_fname} {self.teacher_lname}"
+
+
+class Session(models.Model):
+    session_id = models.IntegerField(primary_key=True)
+    session_name = models.CharField(max_length=10)
+    session_year = models.IntegerField()
+
+class Course(models.Model):
+    course_id = models.IntegerField(primary_key=True)
+    college = models.ForeignKey(College, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
+    course_name = models.CharField(max_length=35)
+
+    def __str__(self):
+        return self.course_id
     
 # class Helper(models.Model):
 #     helper_id = models.IntegerField()
