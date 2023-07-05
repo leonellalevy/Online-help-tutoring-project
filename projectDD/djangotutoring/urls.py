@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.views.static import serve
-
+from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
@@ -37,6 +37,8 @@ urlpatterns = [
     # path('online_tutoring/', include('online_tutoring.urls')),
     # path('students/', student_list, name='student_list'),
     # re_path(r'^', include('online_tutoring.urls')),
+    re_path(r'.*$', TemplateView.as_view(template_name='index.html')),
+
 ]
 
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

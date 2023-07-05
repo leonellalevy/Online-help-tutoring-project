@@ -1,5 +1,5 @@
 import React from "react";
-import "../script";
+// import "../script";
 
 const AboutPage: React.FC = () => {
     const randomNumber = Math.floor(Math.random() * 100);

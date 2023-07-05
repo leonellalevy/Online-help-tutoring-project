@@ -19,3 +19,4 @@ function greet(name: string) {
   }
   
   greet("po letsgoo");
+

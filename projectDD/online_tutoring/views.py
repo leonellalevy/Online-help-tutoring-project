@@ -8,12 +8,28 @@ from django.http import JsonResponse
 def index(request):
     return render(request, 'index.html')
 
+from django.shortcuts import render
+
+def about_view(request):
+    return render(request, 'index.html')
+
+def helper_view(request):
+    return render(request, 'helper.html')
+
+def homepage_view(request):
+    return render(request, 'homepage.html')
+
+def loginpage_view(request):
+    return render(request, 'loginpage.html')
+
 def api_data(request):
     data = {
         'message': 'Hello my DUDE the backend!',
     }
     return JsonResponse(data)
 
+def about_view(request):
+    return 
 # def main_tsx_view(request):
 #     # Read the content of the main.tsx file
 #     with open('../src/main.tsx', 'r') as file:

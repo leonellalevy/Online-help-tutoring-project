@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../script";
-import "../index.css";
+// import "../index.css";
 // import { faVideo, faPhone, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
