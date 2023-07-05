@@ -23,9 +23,16 @@ class Student(models.Model):
 class College(models.Model):
     college_id = models.IntegerField(primary_key=True)
     college_name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.college_name
+    
 class Subject(models.Model):
     subject_id = models.IntegerField(primary_key=True)
     subject_name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.subject_name
 
 class Teacher(models.Model):
     teacher_id = models.IntegerField(primary_key=True)
@@ -41,6 +48,9 @@ class Session(models.Model):
     session_name = models.CharField(max_length=10)
     session_year = models.IntegerField()
 
+    def __str__(self):
+        return f"{self.session_name} {self.session_year}"
+
 class Course(models.Model):
     course_id = models.IntegerField(primary_key=True)
     college = models.ForeignKey(College, on_delete=models.CASCADE)
@@ -50,7 +60,7 @@ class Course(models.Model):
     course_name = models.CharField(max_length=35)
 
     def __str__(self):
-        return self.course_id
+        return self.course_name
     
 # class Helper(models.Model):
 #     helper_id = models.IntegerField()

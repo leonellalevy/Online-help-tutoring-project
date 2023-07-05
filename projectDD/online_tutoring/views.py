@@ -1,5 +1,5 @@
 from django.shortcuts import render
-# from .models import Student
+from .models import College
 from django.views.generic import ListView, CreateView
 from .serializers import YourModelSerializer
 from django.http import HttpResponse
@@ -10,26 +10,26 @@ def index(request):
 
 from django.shortcuts import render
 
-def about_view(request):
-    return render(request, 'index.html')
-
-def helper_view(request):
-    return render(request, 'helper.html')
-
-def homepage_view(request):
-    return render(request, 'homepage.html')
-
-def loginpage_view(request):
-    return render(request, 'loginpage.html')
-
 def api_data(request):
     data = {
         'message': 'Hello my DUDE the backend!',
     }
     return JsonResponse(data)
 
-def about_view(request):
-    return 
+def college_list(request):
+    colleges = College.objects.all()
+    data = {
+        'colleges': [
+            {
+                'college_id': college.pk,
+                'college_name': college.college_name,
+            }
+            for college in colleges
+        ]
+    }
+
+    return JsonResponse(data)
+
 # def main_tsx_view(request):
 #     # Read the content of the main.tsx file
 #     with open('../src/main.tsx', 'r') as file:

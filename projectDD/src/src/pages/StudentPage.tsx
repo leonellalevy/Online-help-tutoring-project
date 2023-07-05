@@ -1,16 +1,37 @@
-import React, { useState } from "react";
-import "../script";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 
 interface Helper {
     username: string;
     rating: number;
     price: number;
 }
+
+interface College {
+    college_id: number;
+    college_name: string;
+}
+
 const StudentPage: React.FC = () => {
+    const [colleges, setColleges] = useState<College[]>([]);
     const [showTable, setShowTable] = useState(false);
     const [helpers, setHelpers] = useState<Helper[]>([]);
     const [selectedHelper, setSelectedHelper] = useState<Helper | null>(null);
     const [showDialog, setShowDialog] = useState(false);
+
+    useLayoutEffect(() => {
+        fetchColleges();
+    }, []);
+
+    const fetchColleges = async () => {
+        try {
+            const response = await fetch("/api/colleges/");
+            const data = await response.json();
+
+            setColleges(data.colleges);
+        } catch (error) {
+            console.log("Error fetching colleges:", error);
+        }
+    };
 
     const handleSearch = (event: React.FormEvent) => {
         event.preventDefault();
@@ -83,15 +104,17 @@ const StudentPage: React.FC = () => {
                     <form onSubmit={handleSearch}>
                         <label htmlFor="username">College:</label>
                         <br />
-                        <select name="cars" id="cars">
-                            <optgroup label="In Montreal">
-                                <option value="volvo">Vanier</option>
-                                <option value="saab">Dawson</option>
-                            </optgroup>
-                            <optgroup label="Outside Montreal">
-                                <option value="mercedes">Bob</option>
-                                <option value="audi">Bob</option>
-                            </optgroup>
+                        <select name="college" id="college">
+                            <option value="0">Select a college</option>
+
+                            {colleges.map((college) => (
+                                <option
+                                    key={college.college_id}
+                                    value={college.college_id}
+                                >
+                                    {college.college_name}
+                                </option>
+                            ))}
                         </select>
                         <label htmlFor="password">Subject:</label>
                         <br />

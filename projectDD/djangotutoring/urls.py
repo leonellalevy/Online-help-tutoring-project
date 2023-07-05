@@ -29,15 +29,18 @@ from online_tutoring import views
 
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('api/data', views.api_data, name='api_data'),
     # path('', views.index, name='index'),
+    path('api/colleges/', views.college_list, name='api_college'),
+    re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
+    # re_path(r'.*$', TemplateView.as_view(template_name='index.html')),
+    # path('api/colleges', views.college_list, name='api_college'),
+    path('', views.index, name='index'),
     # path(r'^admin/', admin.site.urls),
     #path('api/', include('online_tutoring.urls')),
     # path('online_tutoring/', include('online_tutoring.urls')),
     # path('students/', student_list, name='student_list'),
-    # re_path(r'^', include('online_tutoring.urls')),
-    re_path(r'.*$', TemplateView.as_view(template_name='index.html')),
+    #re_path(r'^', include('online_tutoring.urls')),
+    
 
 ]
 
