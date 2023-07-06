@@ -11,9 +11,12 @@ interface College {
     college_name: string;
 }
 
-interface Subject {
-    subject_id: number;
-    subject_name: string;
+interface Course {
+    course_id: number;
+    course_name: string;
+    course_teacher: string;
+    course_session: string;
+    course_college: string;
 }
 
 interface Teacher {
@@ -30,7 +33,7 @@ interface Session {
 
 const StudentPage: React.FC = () => {
     const [colleges, setColleges] = useState<College[]>([]);
-    const [subjects, setSubjects] = useState<Subject[]>([]);
+    const [courses, setCourses] = useState<Course[]>([]);
     const [teachers, setTeachers] = useState<Teacher[]>([]);
     const [sessions, setSessions] = useState<Session[]>([]);
     const [showTable, setShowTable] = useState(false);
@@ -41,7 +44,7 @@ const StudentPage: React.FC = () => {
 
     useLayoutEffect(() => {
         fetchColleges();
-        fetchSubjects();
+        fetchCourses();
         fetchTeachers();
         fetchSessions();
     }, []);
@@ -57,16 +60,16 @@ const StudentPage: React.FC = () => {
         }
     };
 
-    const fetchSubjects = async () => {
+    const fetchCourses = async () => {
         try {
-            const response = await fetch("/api/subjects/");
+            const response = await fetch("/api/courses/");
             const data = await response.json();
 
-            console.log("Subjects data:", data); // Add this line
+            console.log("Courses data:", data); // Add this line
 
-            setSubjects(data.subjects);
+            setCourses(data.courses);
         } catch (error) {
-            console.log("Error fetching subjects:", error);
+            console.log("Error fetching courses:", error);
         }
     };
 
@@ -155,7 +158,7 @@ const StudentPage: React.FC = () => {
         setShowDialog(false);
     };
 
-    console.log(subjects);
+    console.log(courses);
 
     return (
         <div className="main">
@@ -177,16 +180,16 @@ const StudentPage: React.FC = () => {
                                 </option>
                             ))}
                         </select>
-                        <label htmlFor="username">Subject:</label>
+                        <label htmlFor="username">Course:</label>
                         <br />
-                        <select name="subject" id="subject">
-                            <option value="">Select a subject</option>
-                            {subjects.map((subject) => (
+                        <select name="course" id="course">
+                            <option value="">Select a course</option>
+                            {courses.map((course) => (
                                 <option
-                                    key={subject.subject_id}
-                                    value={subject.subject_id} // Fix the value here
+                                    key={course.course_id}
+                                    value={course.course_id} // Fix the value here
                                 >
-                                    {subject.subject_name}
+                                    {course.course_name}
                                 </option>
                             ))}
                         </select>

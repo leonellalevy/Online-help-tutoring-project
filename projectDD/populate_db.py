@@ -14,13 +14,8 @@ from online_tutoring.models import College, Subject, Teacher, Session, Course
 
 
 def populate_database():
-    college1 = College(college_id=1, college_name='ABC College')
+    college1 = College(college_id=1, college_name='Dawson College')
     college2 = College(college_id=2, college_name='Vanier College')
-
-    subject1 = Subject(subject_id=1, subject_name='Mathematics')
-    subject2 = Subject(subject_id=2, subject_name='French')
-    subject3 = Subject(subject_id=3, subject_name='English')
-    subject4 = Subject(subject_id=4, subject_name='Chemistry')
 
     teacher1 = Teacher(teacher_id=1, teacher_fname='John', teacher_lname= 'Doe')   
     teacher2 = Teacher(teacher_id=2, teacher_fname='PApapap', teacher_lname= 'bjhb')  
@@ -31,13 +26,18 @@ def populate_database():
     session3 = Session(session_id=3, session_name='Fall', session_year=2023)
     session4 = Session(session_id=4, session_name='Winter', session_year=2023)
 
+    course1 = Course(course_id=1, college=college1, teacher=teacher1, session=session1, course_name="Englich_101")
+    course2 = Course(course_id=2, college=college1, teacher=teacher1, session=session2, course_name="Frensh_101")
+    course3 = Course(course_id=3, college=college2, teacher=teacher2, session=session3, course_name="English_102")
+    course4 = Course(course_id=4, college=college2, teacher=teacher3, session=session4, course_name="French_102")
+
     college1.save()
     college2.save()
 
-    subject1.save()
-    subject2.save()
-    subject3.save()
-    subject4.save()
+    course1.save()
+    course2.save()
+    course3.save()
+    course4.save()
 
     teacher1.save()
     teacher2.save()
@@ -48,16 +48,15 @@ def populate_database():
     session3.save()
     session4.save()
 
-    course1 = Course(
-        course_id=1,
+    course5 = Course(
+        course_id=5,
         college=college1,
-        subject=subject1,
         teacher=teacher1,
         session=session1,
         course_name='Course A'
     )
     
-    course1.save()
+    course5.save()
 
 # class Command(BaseCommand):
 #     help = 'Populate the database with initial data.'

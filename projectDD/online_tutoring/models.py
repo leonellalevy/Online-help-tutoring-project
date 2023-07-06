@@ -55,7 +55,6 @@ class Course(models.Model):
     course_id = models.IntegerField(primary_key=True)
     college = models.ForeignKey(College, on_delete=models.CASCADE)
     #TODO: Delete subject et remplacer par course_name
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     course_name = models.CharField(max_length=35)

@@ -1,9 +1,38 @@
 from django.shortcuts import render
-from .models import College, Session, Subject, Teacher
+from .models import College, Session, Course, Teacher
 from django.views.generic import ListView, CreateView
 from .serializers import YourModelSerializer
 from django.http import HttpResponse
 from django.http import JsonResponse
+
+def serialize_teacher(teacher: Teacher):
+    """
+    Function to return a serialized Teacher object
+    """
+    return {
+        'teacher_id': teacher.pk,
+        'teacher_fname': teacher.teacher_fname,
+        'teacher_lname': teacher.teacher_lname,
+    }
+
+def serialize_session(session: Session):
+    """
+    Function to return a serialized Session object
+    """
+    return {
+        'session_id': session.pk,
+        'session_name': session.session_name,
+        'session_year': session.session_year,
+    }
+
+def serialize_college(college: College):
+    """
+    Function to return a serialized College object
+    """
+    return {
+        'college_id': college.pk,
+        'college_name': college.college_name,
+    }
 
 def index(request):
     return render(request, 'index.html')
@@ -30,15 +59,18 @@ def college_list(request):
 
     return JsonResponse(data)
 
-def subject_list(request):
-    subjects = Subject.objects.all()
+def course_list(request):
+    courses = Course.objects.all()
     data = {
-        'subjects': [
+        'courses': [
             {
-                'subject_id': subject.pk,
-                'subject_name': subject.subject_name,
+                'course_id': course.pk,
+                'course_name': course.course_name,
+                'course_teacher': serialize_teacher(course.teacher),
+                'course_session': serialize_session(course.session),
+                'course_college': serialize_college(course.college),
             }
-            for subject in subjects
+            for course in courses
         ]
     }
     print(data)
