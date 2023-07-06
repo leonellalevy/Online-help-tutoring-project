@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import College
+from .models import College, Session, Subject, Teacher
 from django.views.generic import ListView, CreateView
 from .serializers import YourModelSerializer
 from django.http import HttpResponse
@@ -25,6 +25,52 @@ def college_list(request):
                 'college_name': college.college_name,
             }
             for college in colleges
+        ]
+    }
+
+    return JsonResponse(data)
+
+def subject_list(request):
+    subjects = Subject.objects.all()
+    data = {
+        'subjects': [
+            {
+                'subject_id': subject.pk,
+                'subject_name': subject.subject_name,
+            }
+            for subject in subjects
+        ]
+    }
+    print(data)
+
+    return JsonResponse(data)
+
+def teacher_list(request):
+    teachers = Teacher.objects.all()
+    data = {
+        'teachers': [
+            {
+                'teacher_id': teacher.pk,
+                'teacher_fname': teacher.teacher_fname,
+                'teacher_lname': teacher.teacher_lname,
+            }
+            for teacher in teachers
+        ]
+    }
+
+    print(data)
+    return JsonResponse(data)
+
+def session_list(request):
+    sessions = Session.objects.all()
+    data = {
+        'sessions': [
+            {
+                'session_id': session.pk,
+                'session_name': session.session_name,
+                'session_year': session.session_year,
+            }
+            for session in sessions
         ]
     }
 

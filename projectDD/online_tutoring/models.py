@@ -54,6 +54,7 @@ class Session(models.Model):
 class Course(models.Model):
     course_id = models.IntegerField(primary_key=True)
     college = models.ForeignKey(College, on_delete=models.CASCADE)
+    #TODO: Delete subject et remplacer par course_name
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
@@ -62,15 +63,24 @@ class Course(models.Model):
     def __str__(self):
         return self.course_name
     
-# class Helper(models.Model):
-#     helper_id = models.IntegerField()
+class Helper(models.Model):
+    helper_id = models.IntegerField(primary_key=True)
+    role_id = models.IntegerField()
+    helper_fname = models.CharField(max_length=25)
+    helper_lname = models.CharField(max_length=25)
+    helper_username = models.CharField(max_length=30)
+    helper_rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+
+    def __str__(self):
+        return self.helper_username
+    
+# class Group(models.Model):
+#     helper_id = models.IntegerField(primary_key=True)
 #     role_id = models.IntegerField()
 #     helper_fname = models.CharField(max_length=25)
 #     helper_lname = models.CharField(max_length=25)
 #     helper_username = models.CharField(max_length=30)
 #     helper_rating = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-#     student_ids = models.ManyToManyField(Student, related_name='helpers')
-#     course_ids = models.ManyToManyField(Course, related_name='helpers')
 
 #     def __str__(self):
 #         return self.helper_username

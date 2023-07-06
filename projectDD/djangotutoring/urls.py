@@ -31,6 +31,9 @@ from online_tutoring import views
 urlpatterns = [
     # path('', views.index, name='index'),
     path('api/colleges/', views.college_list, name='api_college'),
+    path('api/subjects/', views.subject_list, name='api_subject'),
+    path('api/teachers/', views.teacher_list, name='api_teacher'),
+    path('api/sessions/', views.session_list, name='api_session'),
     re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
     # re_path(r'.*$', TemplateView.as_view(template_name='index.html')),
     # path('api/colleges', views.college_list, name='api_college'),

@@ -11,15 +11,39 @@ interface College {
     college_name: string;
 }
 
+interface Subject {
+    subject_id: number;
+    subject_name: string;
+}
+
+interface Teacher {
+    teacher_id: number;
+    teacher_fname: string;
+    teacher_lname: string;
+}
+
+interface Session {
+    session_id: number;
+    session_name: string;
+    session_year: string;
+}
+
 const StudentPage: React.FC = () => {
     const [colleges, setColleges] = useState<College[]>([]);
+    const [subjects, setSubjects] = useState<Subject[]>([]);
+    const [teachers, setTeachers] = useState<Teacher[]>([]);
+    const [sessions, setSessions] = useState<Session[]>([]);
     const [showTable, setShowTable] = useState(false);
     const [helpers, setHelpers] = useState<Helper[]>([]);
     const [selectedHelper, setSelectedHelper] = useState<Helper | null>(null);
     const [showDialog, setShowDialog] = useState(false);
+    const bob = 0;
 
     useLayoutEffect(() => {
         fetchColleges();
+        fetchSubjects();
+        fetchTeachers();
+        fetchSessions();
     }, []);
 
     const fetchColleges = async () => {
@@ -30,6 +54,41 @@ const StudentPage: React.FC = () => {
             setColleges(data.colleges);
         } catch (error) {
             console.log("Error fetching colleges:", error);
+        }
+    };
+
+    const fetchSubjects = async () => {
+        try {
+            const response = await fetch("/api/subjects/");
+            const data = await response.json();
+
+            console.log("Subjects data:", data); // Add this line
+
+            setSubjects(data.subjects);
+        } catch (error) {
+            console.log("Error fetching subjects:", error);
+        }
+    };
+
+    const fetchTeachers = async () => {
+        try {
+            const response = await fetch("/api/teachers/");
+            const data = await response.json();
+
+            setTeachers(data.teachers);
+        } catch (error) {
+            console.log("Error fetching teachers:", error);
+        }
+    };
+
+    const fetchSessions = async () => {
+        try {
+            const response = await fetch("/api/sessions/");
+            const data = await response.json();
+
+            setSessions(data.sessions);
+        } catch (error) {
+            console.log("Error fetching sessions:", error);
         }
     };
 
@@ -96,6 +155,8 @@ const StudentPage: React.FC = () => {
         setShowDialog(false);
     };
 
+    console.log(subjects);
+
     return (
         <div className="main">
             <div className="main__container">
@@ -116,29 +177,50 @@ const StudentPage: React.FC = () => {
                                 </option>
                             ))}
                         </select>
-                        <label htmlFor="password">Subject:</label>
+                        <label htmlFor="username">Subject:</label>
                         <br />
-                        <select name="cars" id="cars">
-                            <optgroup label="Maths">
-                                <option value="volvo">Cal 1</option>
-                                <option value="saab">Cal 2</option>
-                            </optgroup>
-                            <optgroup label="Chemistry">
-                                <option value="mercedes">1</option>
-                                <option value="audi">2</option>
-                            </optgroup>
+                        <select name="subject" id="subject">
+                            <option value="">Select a subject</option>
+                            {subjects.map((subject) => (
+                                <option
+                                    key={subject.subject_id}
+                                    value={subject.subject_id} // Fix the value here
+                                >
+                                    {subject.subject_name}
+                                </option>
+                            ))}
                         </select>
-                        <label htmlFor="password">Class:</label>
+                        <label htmlFor="password">Session:</label>
                         <br />
-                        <select name="cars" id="cars">
-                            <option value="volvo">1</option>
-                            <option value="saab">2</option>
+                        <select name="session" id="session">
+                            <option value="0">Select a session</option>
+
+                            {sessions.map((session) => (
+                                <option
+                                    key={session.session_id}
+                                    value={session.session_id}
+                                >
+                                    {session.session_name +
+                                        " " +
+                                        session.session_year}
+                                </option>
+                            ))}
                         </select>
                         <label htmlFor="password">Teacher:</label>
                         <br />
-                        <select name="cars" id="cars">
-                            <option value="mercedes">1</option>
-                            <option value="audi">2</option>
+                        <select name="teacher" id="teacher">
+                            <option value="0">Select a teacher</option>
+
+                            {teachers.map((teacher) => (
+                                <option
+                                    key={teacher.teacher_id}
+                                    value={teacher.teacher_id}
+                                >
+                                    {teacher.teacher_fname +
+                                        " " +
+                                        teacher.teacher_lname}
+                                </option>
+                            ))}
                         </select>
                         <input
                             className="main__btn"
