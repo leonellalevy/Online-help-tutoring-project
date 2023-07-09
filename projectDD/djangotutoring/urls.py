@@ -30,6 +30,7 @@ from online_tutoring import views
 
 urlpatterns = [
     # path('', views.index, name='index'),
+    path('api/', include(('online_tutoring.routers', 'online_tutoring'), namespace='online_tutoring-api')),
     path('api/colleges/', views.college_list, name='api_college'),
     path('api/courses/', views.course_list, name='api_course'),
     path('api/teachers/', views.teacher_list, name='api_teacher'),

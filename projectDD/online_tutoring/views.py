@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import College, Session, Course, Teacher
 from django.views.generic import ListView, CreateView
-from .serializers import YourModelSerializer
+from .serializers import UserSerializer
 from django.http import HttpResponse
 from django.http import JsonResponse
 
@@ -76,6 +76,12 @@ def course_list(request):
     print(data)
 
     return JsonResponse(data)
+
+def view_course(request, course_id):
+    course = get_object_or_404(Course, course_id=course_id)
+    data = {
+        "course": course,
+    }
 
 def teacher_list(request):
     teachers = Teacher.objects.all()

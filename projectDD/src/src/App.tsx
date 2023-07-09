@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -7,8 +7,13 @@ import LoginPage from "./pages/LoginPage";
 import StudentPage from "./pages/StudentPage";
 import AboutPage from "./pages/AboutPage";
 import HelperPage from "./pages/HelperPage";
+import Profile from "./pages/Profile";
 import { Helmet } from "react-helmet";
 import React, { ReactNode, useEffect, useState } from "react";
+import store, { persistor } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+import ProtectedRoute from "./routes/ProtectedRoute";
 import axios from "axios";
 import "./style.css";
 import "./script";
@@ -52,18 +57,26 @@ const App: React.FC = () => {
     const [data, setData] = useState<any>(null);
 
     return (
-        <Router>
-            <Layout>
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/student" element={<StudentPage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/about" element={<AboutPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
-                    <Route path="/helper" element={<HelperPage />} />
-                </Routes>
-            </Layout>
-        </Router>
+        <Provider store={store}>
+             <PersistGate persistor={persistor} loading={null}>
+                <Router>
+                <Layout>
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/student" element={<StudentPage />} />
+                        <Route path="/login" element={<LoginPage />} />
+                        <Route path="/about" element={<AboutPage />} />
+                        <Route path="/register" element={<RegisterPage />} />
+                        <Route path="/helper" element={<HelperPage />} />
+                        <Route
+                path="/profile"
+                element={<ProtectedRoute component={Profile} />}
+              />
+                    </Routes>
+                </Layout>
+                </Router>
+             </PersistGate>
+         </Provider>
     );
 };
 

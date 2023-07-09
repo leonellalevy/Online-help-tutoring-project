@@ -1,46 +1,188 @@
-import React from "react";
 import "../script";
+import React, { useState } from "react";
+import * as Yup from "yup";
+import { ErrorMessage, Field, Form, Formik, FormikHelpers, FormikValues, useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { createBrowserHistory } from "history";
+import authSlice from "../store/slices/auth";
 
 const LoginPage: React.FC = () => {
-    return (
-        <div className="main">
-            <div className="main__container">
-                <div className="main__content">
-                    <h1>Login</h1>
-                    <form method="post">
-                        <label htmlFor="username">Username:</label>
-                        <br />
-                        <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            required
-                        />
-                        <br />
-                        <label htmlFor="password">Password:</label>
-                        <br />
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            required
-                        />
-                        <br />
-                        <input
-                            className="main__btn"
-                            type="submit"
-                            value="Login"
-                        />
-                        <br />
+    const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const history = createBrowserHistory();
 
-                        <h5 style={{ textAlign: "center" }}>
-                            Not registered? Click <a href="register">here</a> to
-                            register
-                        </h5>
-                    </form>
-                </div>
-            </div>
+    const handleLogin = (email: string, password: string) => {
+      axios
+      .post(`${process.env.REACT_APP_API_URL}/auth/login/`, { email, password })
+      .then((res) => {
+        dispatch(
+          authSlice.actions.setAuthTokens({
+            token: res.data.access,
+            refreshToken: res.data.refresh,
+          })
+        );
+        dispatch(authSlice.actions.setAccount(res.data.user));
+        setLoading(false);
+        history.push("/");
+      })
+      .catch((err) => {
+        setMessage(err.response.data.detail.toString());
+      });
+    };
+
+    const initialValues = {
+      email: "",
+      password: "",
+    };
+
+    const validationSchema = Yup.object({
+      email: Yup.string().trim().required("Le nom d'utilisateur est requis"),
+      password: Yup.string().trim().required("Le mot de passe est requis"),
+    });
+  
+    const onSubmit = (values: typeof initialValues) => {
+      setLoading(true);
+      handleLogin(values.email, values.password);
+    };
+
+    // const formik = useFormik({
+    //     initialValues: {
+    //       email: "",
+    //       password: "",
+    //     },
+    //     onSubmit: (values) => {
+    //       setLoading(true);
+    //       handleLogin(values.email, values.password);
+    //     },
+    //     validationSchema: Yup.object({
+    //       email: Yup.string().trim().required("Le nom d'utilisateur est requis"),
+    //       password: Yup.string().trim().required("Le mot de passe est requis"),
+    //     }),
+    // });
+
+    // return (
+    //     <div className="h-screen flex bg-gray-bg1">
+    //       <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
+    //         <h1 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
+    //           Log in to your account 🔐
+    //         </h1>
+    //         {/* <Formik initialValues={undefined} onSubmit={function (values: FormikValues, formikHelpers: FormikHelpers<FormikValues>): void | Promise<any> {
+    //         throw new Error("Function not implemented.");
+    //       } }></Formik> */}
+    //       <Formik initialValues={{
+    //       email: "",
+    //       password: "",
+    //     }} 
+    //     onSubmit={(values) => {
+    //       setLoading(true);
+    //       handleLogin(values.email, values.password);
+    //     } } validationSchema={Yup.object({
+    //       email: Yup.string().trim().required("Le nom d'utilisateur est requis"),
+    //       password: Yup.string().trim().required("Le mot de passe est requis"),
+    //     })}>
+          
+    //         <form>
+    //           <div className="space-y-4">
+    //             <input
+    //               className="border-b border-gray-300 w-full px-2 h-8 rounded focus:border-blue-500"
+    //               id="email"
+    //               type="email"
+    //               placeholder="Email"
+    //               name="email"
+    //               // value={formik.values.email}
+    //               // onChange={formik.handleChange}
+    //               // onBlur={formik.handleBlur}
+    //             />
+    //             {/* {formik.errors.email ? <div>{formik.errors.email} </div> : null} */}
+    //             <input
+    //               className="border-b border-gray-300 w-full px-2 h-8 rounded focus:border-blue-500"
+    //               id="password"
+    //               type="password"
+    //               placeholder="Password"
+    //               name="password"
+    //               // value={formik.values.password}
+    //               // onChange={formik.handleChange}
+    //               // onBlur={formik.handleBlur}
+    //             />
+    //             {/* {formik.errors.password ? (
+    //               <div>{formik.errors.password} </div>
+    //             ) : null} */}
+    //           </div>
+    //           <div className="text-danger text-center my-2" hidden={false}>
+    //             {message}
+    //           </div>
+    
+    //           <div className="flex justify-center items-center mt-6">
+    //             <button
+    //               type="submit"
+    //               disabled={loading}
+    //               className="rounded border-gray-300 p-2 w-32 bg-blue-700 text-white"
+    //             >
+    //               Login
+    //             </button>
+    //           </div>
+    //         </form>
+    //         </Formik>
+    //       </div>
+    //     </div>
+    // );
+    return (
+      <div className="h-screen flex bg-gray-bg1">
+        <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
+          <h1 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
+            Log in to your account 🔐
+          </h1>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={onSubmit}
+          >
+            <Form>
+              <div className="space-y-4">
+                <Field
+                  className="border-b border-gray-300 w-full px-2 h-8 rounded focus:border-blue-500"
+                  id="email"
+                  type="email"
+                  placeholder="Email"
+                  name="email"
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-danger"
+                />
+                <Field
+                  className="border-b border-gray-300 w-full px-2 h-8 rounded focus:border-blue-500"
+                  id="password"
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="text-danger"
+                />
+              </div>
+              <div className="text-danger text-center my-2" hidden={false}>
+                {message}
+              </div>
+  
+              <div className="flex justify-center items-center mt-6">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="rounded border-gray-300 p-2 w-32 bg-blue-700 text-white"
+                >
+                  Login
+                </button>
+              </div>
+            </Form>
+          </Formik>
         </div>
+      </div>
     );
 };
 
