@@ -69,9 +69,9 @@ const App: React.FC = () => {
                         <Route path="/register" element={<RegisterPage />} />
                         <Route path="/helper" element={<HelperPage />} />
                         <Route
-                path="/profile"
-                element={<ProtectedRoute component={Profile} />}
-              />
+                            path="/profile"
+                            element={<ProtectedRoute component={Profile} />}
+                        />
                     </Routes>
                 </Layout>
                 </Router>
