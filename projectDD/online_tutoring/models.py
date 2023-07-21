@@ -53,7 +53,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return f"{self.email}"
     
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student', default=1)
     student_id = models.IntegerField(primary_key=True)
     role_id = models.IntegerField()
     student_username = models.CharField(max_length=30)
@@ -107,7 +107,7 @@ class Course(models.Model):
         return self.course_name
     
 class Helper(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='helper')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='helper', default=1)
     helper_id = models.IntegerField(primary_key=True)
     role_id = models.IntegerField()
     helper_fname = models.CharField(max_length=25)
